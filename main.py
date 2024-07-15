@@ -1,22 +1,23 @@
 import streamlit as st
+from src.functions import compare_resume
 
 def main():
     # Title
     st.title("Input Form")
 
     # Input fields
-    input1 = st.text_input("Enter Input 1")
-    input2 = st.text_input("Enter Input 2")
+    resume_text = st.text_input("Resume Information")
+    jd_text = st.text_input("Job Description")
 
     # Submit button
     if st.button("Submit"):
         # Process the inputs
-        process_inputs(input1, input2)
+        process_inputs(compare_resume(resume_text, jd_text))
 
-def process_inputs(input1, input2):
+def process_inputs(input1):
     # Process the inputs here
     st.write("Input 1:", input1)
-    st.write("Input 2:", input2)
+
 
 if __name__ == "__main__":
     main()
