@@ -19,6 +19,8 @@ def compare_resume(resume_text, jd_text):
     Give a percentage estimating how qualified the individual is for the job.
     Output format should be as below:
 
+    Here is the comparison of the resume and job description:
+
     Estimated qualification percentage:
 
     Skills and qualifications from resume:
