@@ -1,10 +1,12 @@
-import json
+
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-goog_api_key = os.getenv('GOOGLE_API_KEY') # create a variable in .env file 'GOOGLE_API_KEY' and add the api key there
+# load_dotenv()
+# goog_api_key = os.getenv('GOOGLE_API_KEY') # create a variable in .env file 'GOOGLE_API_KEY' and add the api key there
+
+goog_api_key = st.secrets['GOOGLE_API_KEY']
 
 def compare_resume(resume_text, jd_text):
     model = genai.GenerativeModel('gemini-1.5-flash')
