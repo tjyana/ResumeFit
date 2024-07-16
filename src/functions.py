@@ -22,7 +22,7 @@ def compare_resume(resume_text, jd_text):
     For candidate information section, please cite any applicable certifications they have.
     Please penalize heavily for any missing mandatory qualifications and reflect it in the percentage.
 
-    Output format should be as below:
+    Output format should be as below, with each section title in large font:
 
     Estimated qualification percentage:
 
