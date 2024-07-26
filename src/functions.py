@@ -5,6 +5,7 @@ import os
 import fitz
 from docx import Document
 import requests
+from io import StringIO
 
 # for testing locally --------------------------------------
 load_dotenv()
@@ -70,16 +71,17 @@ def compare_resume(resume_text, jd_text):
 
 
 
-def read_pdf(file):
-    try:
-        doc = fitz.open(stream=file.read(), filetype="pdf")
-        text = ""
-        for page in doc:
-            text += page.get_text()
-        return text
-    except Exception as e:
-        st.error(f"Error reading PDF file: {e}")
-        return ""
+
+# def read_pdf(file):
+#     try:
+#         doc = fitz.open(stream=file.read(), filetype="pdf")
+#         text = ""
+#         for page in doc:
+#             text += page.get_text()
+#         return text
+#     except Exception as e:
+#         st.error(f"Error reading PDF file: {e}")
+#         return ""
 
 def read_doc(file):
     doc = Document(file)

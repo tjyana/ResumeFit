@@ -1,5 +1,6 @@
 import streamlit as st
 from src.functions import compare_resume, read_pdf, read_doc
+from io import StringIO
 
 
 # # original code that works --------------------------------------
@@ -36,9 +37,10 @@ def main():
         resume_file = st.sidebar.file_uploader("Choose a PDF or DOC file", type=["pdf", "docx"])
         if resume_file is not None:
             file_type = resume_file.name.split(".")[-1]
+            print(file_type)
             if file_type == "pdf":
-                resume_text = read_pdf(resume_file)
-                print(resume_text)
+                stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+                st.write(stringio)
             elif file_type == "docx":
                 resume_text = read_doc(resume_file)
             else:
