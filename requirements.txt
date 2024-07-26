@@ -3,3 +3,7 @@ pandas
 google.generativeai
 python-dotenv
 streamlit
+pymupdf
+requests
+beautifulsoup4
+fitz

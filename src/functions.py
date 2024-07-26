@@ -2,13 +2,16 @@ import streamlit as st
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
+import fitz
+from docx import Document
+import requests
 
-# # for testing locally --------------------------------------
-# load_dotenv()
-# goog_api_key = os.getenv('GOOGLE_API_KEY') # create a variable in .env file 'GOOGLE_API_KEY' and add the api key there
+# for testing locally --------------------------------------
+load_dotenv()
+goog_api_key = os.getenv('GOOGLE_API_KEY') # create a variable in .env file 'GOOGLE_API_KEY' and add the api key there
 
-# for testing on streamlit share -----------------------------
-goog_api_key = st.secrets['GOOGLE_API_KEY']
+# # for testing on streamlit share -----------------------------
+# goog_api_key = st.secrets['GOOGLE_API_KEY']
 
 def compare_resume(resume_text, jd_text):
     model = genai.GenerativeModel('gemini-1.5-flash')
@@ -51,12 +54,36 @@ def compare_resume(resume_text, jd_text):
     - skill2
     - skill3
     ...
-
-
-
     """)
 
     answer = response.text
 
-
     return answer
+
+
+# def read_pdf(resume_file):
+#     doc = fitz.open(resume_file)
+#     text = ""
+#     for page in doc:
+#         text += page.get_text()
+#     return text
+
+
+
+def read_pdf(file):
+    try:
+        doc = fitz.open(stream=file.read(), filetype="pdf")
+        text = ""
+        for page in doc:
+            text += page.get_text()
+        return text
+    except Exception as e:
+        st.error(f"Error reading PDF file: {e}")
+        return ""
+
+def read_doc(file):
+    doc = Document(file)
+    text = ""
+    for para in doc.paragraphs:
+        text += para.text + "\n"
+    return text
