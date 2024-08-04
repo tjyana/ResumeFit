@@ -1,5 +1,5 @@
 import streamlit as st
-from src.functions import compare_resume, read_pdf, read_doc
+from src.functions import compare_resume, read_doc
 from io import StringIO
 
 
@@ -30,22 +30,28 @@ def main():
 
     # Resume Input
     st.sidebar.write("RESUME")
+
     resume_method = st.sidebar.selectbox("""Choose an input method:""", ("Text", "File"))
+
     if resume_method == "Text":
         resume_text = st.sidebar.text_area("Resume Text", height=200)
+
     elif resume_method == "File":
         resume_file = st.sidebar.file_uploader("Choose a PDF or DOC file", type=["pdf", "docx"])
+        print('resume_file:', resume_file)
         if resume_file is not None:
             file_type = resume_file.name.split(".")[-1]
             print(file_type)
             if file_type == "pdf":
-                stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+                stringio = StringIO(resume_file.getvalue().decode("utf-8"))
                 st.write(stringio)
             elif file_type == "docx":
                 resume_text = read_doc(resume_file)
             else:
                 st.write("Please upload a PDF or DOC file")
             # st.text_area("Extracted Text", resume_text, height=200)
+
+
 
     # Job Description Input
     st.sidebar.write("JOB DESCRIPTION")
