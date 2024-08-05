@@ -1,6 +1,7 @@
 import streamlit as st
 from src.functions import compare_resume, read_doc
 from io import StringIO
+import PyPDF2
 
 
 # # original code that works --------------------------------------
@@ -33,18 +34,41 @@ def main():
 
     resume_method = st.sidebar.selectbox("""Choose an input method:""", ("Text", "File"))
 
+
+    # Text input
     if resume_method == "Text":
         resume_text = st.sidebar.text_area("Resume Text", height=200)
 
+    # File input
     elif resume_method == "File":
+
+        # uploader
         resume_file = st.sidebar.file_uploader("Choose a PDF or DOC file", type=["pdf", "docx"])
         print('resume_file:', resume_file)
+
+        # read the file
         if resume_file is not None:
             file_type = resume_file.name.split(".")[-1]
             print(file_type)
+
+            # pdf file
             if file_type == "pdf":
-                stringio = StringIO(resume_file.getvalue().decode("utf-8"))
-                st.write(stringio)
+                # read pdf
+                resume_file.seek(0)
+                reader = PyPDF2.PdfFileReader(resume_file)
+                text = ''
+
+                # extract text
+                for i in range(reader.numPages):
+                    text += reader.getPage(i).extract_text()
+
+                stringio = StringIO
+                text = stringio.read()
+
+                st.write(text)
+
+
+            # docx file
             elif file_type == "docx":
                 resume_text = read_doc(resume_file)
             else:

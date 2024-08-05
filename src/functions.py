@@ -70,7 +70,7 @@ def compare_resume(resume_text, jd_text):
 #     return text
 
 
-
+############ try these??? since it was a file extraction issue
 
 # def read_pdf(file):
 #     try:
@@ -82,6 +82,10 @@ def compare_resume(resume_text, jd_text):
 #     except Exception as e:
 #         st.error(f"Error reading PDF file: {e}")
 #         return ""
+
+
+
+
 
 def read_doc(file):
     doc = Document(file)
