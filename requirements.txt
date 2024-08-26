@@ -7,3 +7,4 @@ pymupdf
 requests
 beautifulsoup4
 fitz
+pdfplumber
